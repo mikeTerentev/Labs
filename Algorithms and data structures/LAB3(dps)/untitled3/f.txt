@@ -1,0 +1,33 @@
+#include <iostream>
+#include<fstream>
+#include<iostream>
+#include<cstring>
+
+
+using namespace std;
+
+int main(int args, char *arg[]) {
+    FILE *file = fopen(arg[1], "r");
+    char buf[1];
+    size_t index = 0;
+    string word = arg[2], key = "";
+    while (!feof(file)) {
+        fread(buf, 1, 1, file);
+        char symbol = buf[0];
+        index++;
+        if (isspace(symbol)) {
+            key.clear();
+        } else {
+            key = key + symbol;
+            if (key.size() == word.size()) {
+                if (word == key) {
+                    cout << index - word.size() << " ";
+                    key.erase(0, 1);
+                } else {
+                    key.erase(0, 1);
+                }
+            }
+        }
+    }
+    return 0;
+}
